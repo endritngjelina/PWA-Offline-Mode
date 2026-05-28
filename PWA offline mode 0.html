@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NVIDIA TechDocs - Professional Documentation Hub</title>
+    <meta name="description" content="Offline-first technical documentation platform with advanced sync capabilities">
+    <meta name="theme-color" content="#76b900">
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiTlZJRElBIFRlY2hEb2NzIiwic2hvcnRfbmFtZSI6IlRlY2hEb2NzIiwiZGVzY3JpcHRpb24iOiJPZmZsaW5lLWZpcnN0IHRlY2huaWNhbCBkb2N1bWVudGF0aW9uIHBsYXRmb3JtIiwic3RhcnRfdXJsIjoiLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMwZjBmMGYiLCJ0aGVtZV9jb2xvciI6IiM3NmI5MDAiLCJpY29ucyI6W3sic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCM2FXUjBhRDBpTWpReElpQm9aV2xuYUhROUlqSTBNVGtpSUhacFpYZENiM2c5SWpBZ01DQXlORGt1TlRFZ01qUXhJaUJtYVd4c1BTSWpOelppT1RBd0lpQjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaVBqeHdZWFJvSUdROUlrMHhNalF1TnpVZ01qWXVNalUyYXpJdU5ERWdNalF1TnpVZ01qUXVOelZvT1RCc01qUXVOelVnTWpRdU56VjJPVEJzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyTkRkc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk5EZHNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJPVEJzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyT1RCc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk5EZHNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJORGRzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyT1RCc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk9UQnNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJORGRzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyTkRkc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk9UQnNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJPVEJzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyTkRkc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk5EZHNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJPVEJzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyT1RCc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk5EZHNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJORGRzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyT1RCc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk9UQnNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJORGRzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyTkRkc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk9UQnNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJPVEJzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyTkRkc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk5EZHNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJPVEJzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyT1RCc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk5EZHNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJORGRzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyT1RCc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk9UQnNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJORGRzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyTkRkc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk9UQnNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJPVEJzTWpRdU56VWdNalF1TnpVZ01qUXVOelYySWlCbWFXeHNQU0lqTkRkbE5qVWlMejQ4TDNOMlp6ND0iLCJzaXplcyI6IjI1NngyNTYiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCJ9LHsic3JjIjoiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCM2FXUjBhRDBpTVRFeUlpQm9aV2xuYUhROUlqRXhNaUlnZG1sbGQwSnZlRDBpTUNBd0lERXhNaUF4TVRJaUlHWnBiR3c5SWljM05tSTVNREFpSUhoc2JHNXpQU0puYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNuUGp4d1lYUm9JSFF5UWk1Mk1ETWhNalF1TnpVZ01qWXVNalUyYXpJdU5ERWdNalF1TnpVZ01qUXVOelYyT1RCc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk5EZHNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJPVEJzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyTkRkc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk9UQnNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJPVEJzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyTkRkc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk5EZHNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJPVEJzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyT1RCc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk5EZHNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJORGRzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyT1RCc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk9UQnNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJORGRzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyTkRkc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk9UQnNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJPVEJzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyTkRkc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk5EZHNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJPVEJzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyT1RCc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk5EZHNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJORGRzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyT1RCc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk9UQnNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJORGRzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyTkRkc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk9UQnNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJPVEJzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyTkRkc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk5EZHNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJPVEJzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyT1RCc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk5EZHNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJORGRzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyT1RCc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk9UQnNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJORGRzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyTkRkc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk9UQnNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJPVEJzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyTkRkc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk5EZHNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJPVEJzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyT1RCc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk5EZHNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJORGRzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyT1RCc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk9UQnNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJORGRzTWpRdU56VWdNalF1TnpVZ01qUXVOelYyTkRkc01qUXVOelVnTWpRdU56VWdNalF1TnpWMk9UQnNNalF1TnpVZ01qUXVOelVnTWpRdU56VjJPVEJzTWpRdU56VWdNalF1TnpVZ01qUXVOelYySWlCbWFXeHNQU0luTkRkbE5qVW5MejQ4TDNOMlp6ND0iLCJzaXplcyI6IjExMngxMTIiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCJ9XX0=">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --nvidia-green: #76b900;
+            --nvidia-dark: #0f0f0f;
+            --nvidia-gray: #1a1a1a;
+            --nvidia-light-gray: #2d2d2d;
+            --nvidia-text: #ffffff;
+            --nvidia-text-dim: #b0b0b0;
+            --nvidia-accent: #00d4ff;
+            --nvidia-warning: #ff6b35;
+            --nvidia-success: #00ff88;
+            --shadow-heavy: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.2);
+            --border-radius: 8px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--nvidia-dark) 0%, var(--nvidia-gray) 100%);
+            color: var(--nvidia-text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--nvidia-light-gray);
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--nvidia-green);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--nvidia-dark);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--nvidia-green);
+        }
+
+        .status-bar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--nvidia-light-gray);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .status-indicator.online {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--nvidia-success);
+        }
+
+        .status-indicator.offline {
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--nvidia-warning);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            flex: 1;
+        }
+
+        .sidebar {
+            background: var(--nvidia-light-gray);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow-light);
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            color: var(--nvidia-green);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 12px 16px;
+            color: var(--nvidia-text-dim);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: var(--nvidia-green);
+            color: var(--nvidia-dark);
+            transform: translateX(4px);
+        }
+
+        .content-area {
+            background: var(--nvidia-light-gray);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow-light);
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .content-title {
+            color: var(--nvidia-green);
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--nvidia-green);
+            color: var(--nvidia-dark);
+        }
+
+        .btn-primary:hover {
+            background: #8cc929;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-light);
+        }
+
+        .btn-secondary {
+            background: var(--nvidia-gray);
+            color: var(--nvidia-text);
+            border: 1px solid var(--nvidia-light-gray);
+        }
+
+        .btn-secondary:hover {
+            background: var(--nvidia-light-gray);
+            transform: translateY(-2px);
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px 12px 45px;
+            background: var(--nvidia-gray);
+            border: 1px solid var(--nvidia-light-gray);
+            border-radius: var(--border-radius);
+            color: var(--nvidia-text);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--nvidia-green);
+            box-shadow: 0 0 0 3px rgba(118, 185, 0, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--nvidia-text-dim);
+        }
+
+        .document-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .document-card {
+            background: var(--nvidia-gray);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow-light);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .document-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .document-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .document-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--nvidia-text);
+            margin-bottom: 5px;
+        }
+
+        .document-category {
+            font-size: 0.85rem;
+            color: var(--nvidia-accent);
+            font-weight: 500;
+        }
+
+        .document-description {
+            color: var(--nvidia-text-dim);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .document-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--nvidia-text-dim);
+        }
+
+        .sync-indicator {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .sync-indicator.synced {
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--nvidia-success);
+        }
+
+        .sync-indicator.pending {
+            background: rgba(255, 107, 53, 0.2);
+            color: var(--nvidia-warning);
+        }
+
+        .sync-indicator.offline {
+            background: rgba(176, 176, 176, 0.2);
+            color: var(--nvidia-text-dim);
+        }
+
+        .floating-action {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--nvidia-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-heavy);
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .floating-action:hover {
+            transform: scale(1.1);
+            background: #8cc929;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--nvidia-light-gray);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            color: var(--nvidia-green);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--nvidia-text-dim);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+            transition: var(--transition);
+        }
+
+        .close-btn:hover {
+            color: var(--nvidia-text);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--nvidia-text);
+            font-weight: 500;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--nvidia-gray);
+            border: 1px solid var(--nvidia-light-gray);
+            border-radius: var(--border-radius);
+            color: var(--nvidia-text);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--nvidia-green);
+            box-shadow: 0 0 0 3px rgba(118, 185, 0, 0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--nvidia-gray);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow-light);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--nvidia-green);
+        }
+
+        .stat-label {
+            color: var(--nvidia-text-dim);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            color: var(--nvidia-text);
+            font-weight: 500;
+            z-index: 3000;
+            transform: translateX(100%);
+            transition: var(--transition);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: var(--nvidia-success);
+            color: var(--nvidia-dark);
+        }
+
+        .toast.error {
+            background: var(--nvidia-warning);
+            color: var(--nvidia-dark);
+        }
+
+        .toast.info {
+            background: var(--nvidia-accent);
+            color: var(--nvidia-dark);
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                order: 2;
+            }
+            
+            .content-area {
+                order: 1;
+            }
+            
+            .document-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .app-container {
+                padding: 10px;
+            }
+        }
+
+        .performance-monitor {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--nvidia-light-gray);
+            border-radius: var(--border-radius);
+            padding: 10px 15px;
+            font-size: 0.8rem;
+            color: var(--nvidia-text-dim);
+            box-shadow: var(--shadow-light);
+            z-index: 1000;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--nvidia-light-gray);
+            border-radius: 50%;
+            border-top-color: var(--nvidia-green);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .version-badge {
+            background: var(--nvidia-accent);
+            color: var(--nvidia-dark);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .offline-banner {
+            background: var(--nvidia-warning);
+            color: var(--nvidia-dark);
+            padding: 10px;
+            text-align: center;
+            font-weight: 500;
+            margin-bottom: 20px;
+            border-radius: var(--border-radius);
+            display: none;
+        }
+
+        .offline-banner.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">TD</div>
+                <div class="logo-text">NVIDIA TechDocs</div>
+                <span class="version-badge">v2.1.0</span>
+            </div>
+            <div class="status-bar">
+                <div class="status-indicator" id="connectionStatus">
+                    <div class="status-dot"></div>
+                    <span id="statusText">Checking...</span>
+                </div>
+                <div class="status-indicator">
+                    <span id="syncStatus">Synced</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="offline-banner" id="offlineBanner">
+            <strong>Offline Mode:</strong> You're currently offline. Changes will sync when connection is restored.
+        </div>
+
+        <main class="main-content">
+            <aside class="sidebar">
+                <h3>Categories</h3>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active" data-category="all">All Documents</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-category="gpu">GPU Computing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-category="ai">AI & Machine Learning</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-category="graphics">Graphics & Rendering</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-category="drivers">Driver Documentation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-category="sdk">SDK & Tools</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-category="archived">Archived</a>
+                    </li>
+                </ul>
+
+                <h3 style="margin-top: 30px;">Quick Actions</h3>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" id="exportDocs">Export Docs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" id="clearCache">Clear Cache</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" id="forceSync">Force Sync</a>
+                    </li>
+                </ul>
+            </aside>
+
+            <section class="content-area">
+                <div class="content-header">
+                    <h1 class="content-title">Technical Documentation Hub</h1>
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary" id="installBtn" style="display: none;">
+                            📱 Install App
+                        </button>
+                        <button class="btn btn-primary" id="syncBtn">
+                            🔄 Sync Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search documentation..." id="searchInput">
+                    <div class="search-icon">🔍</div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalDocs">0</div>
+                        <div class="stat-label">Total Documents</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="offlineDocs">0</div>
+                        <div class="stat-label">Offline Available</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="cacheSize">0 MB</div>
+                        <div class="stat-label">Cache Size</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="lastSync">Never</div>
+                        <div class="stat-label">Last Sync</div>
+                    </div>
+                </div>
+
+                <div class="document-grid" id="documentGrid">
+                    <!-- Documents will be populated here -->
+                </div>
+            </section>
+        </main>
+
+        <div class="floating-action" id="addDocBtn" title="Add New Document">
+            ➕
+        </div>
+
+        <div class="performance-monitor" id="performanceMonitor">
+            SW: <span id="swStatus">Loading...</span> | 
+            Cache: <span id="cacheStatus">0 entries</span> |
+            Mem: <span id="memoryUsage">0 MB</span>
+        </div>
+    </div>
+
+    <!-- Add Document Modal -->
+    <div class="modal" id="addDocModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Add New Document</h2>
+                <button class="close-btn" id="closeModal">×</button>
+            </div>
+            <form id="addDocForm">
+                <div class="form-group">
+                    <label class="form-label">Title</label>
+                    <input type="text" class="form-input" id="docTitle" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select class="form-input" id="docCategory" required>
+                        <option value="gpu">GPU Computing</option>
+                        <option value="ai">AI & Machine Learning</option>
+                        <option value="graphics">Graphics & Rendering</option>
+                        <option value="drivers">Driver Documentation</option>
+                        <option value="sdk">SDK & Tools</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-textarea" id="docDescription" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Content</label>
+                    <textarea class="form-textarea" id="docContent" style="min-height: 200px;" required></textarea>
+                </div>
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-secondary" id="cancelAdd">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Document</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // PWA and Service Worker Implementation
+        class NVIDIATechDocs {
+            constructor() {
+                this.isOnline = navigator.onLine;
+                this.documents = [];
+                this.currentCategory = 'all';
+                this.searchTerm = '';
+                this.deferredPrompt = null;
+                this.lastSync = localStorage.getItem('lastSync') || 'Never';
+                
+                this.init();
+            }
+
+            async init() {
+                this.setupEventListeners();
+                this.registerServiceWorker();
+                this.checkInstallability();
+                this.loadDocuments();
+                this.updateUI();
+                this.startPerformanceMonitoring();
+                
+                // Initialize with sample data if empty
+                if (this.documents.length === 0) {
+                    this.loadSampleData();
+                }
+            }
+
+            async registerServiceWorker() {
+                if ('serviceWorker' in navigator) {
+                    try {
+                        const registration = await navigator.serviceWorker.register(this.generateServiceWorker());
+                        console.log('Service Worker registered:', registration);
+                        this.updateSwStatus('Active');
+                        
+                        // Handle service worker updates
+                        registration.addEventListener('updatefound', () => {
+                            this.showToast('New version available! Refresh to update.', 'info');
+                        });
+                    } catch (error) {
+                        console.error('Service Worker registration failed:', error);
+                        this.updateSwStatus('Failed');
+                    }
+                }
+            }
+
+            generateServiceWorker() {
+                const swCode = `
+                    const CACHE_NAME = 'nvidia-techdocs-v2.1.0';
+                    const urlsToCache = [
+                        '/',
+                        '/offline.html'
+                    ];
+
+                    self.addEventListener('install', event => {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then(cache => cache.addAll(urlsToCache))
+                        );
+                    });
+
+                    self.addEventListener('fetch', event => {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then(response => {
+                                    if (response) {
+                                        return response;
+                                    }
+                                    return fetch(event.request);
+                                })
+                                .catch(() => {
+                                    if (event.request.destination === 'document') {
+                                        return caches.match('/offline.html');
+                                    }
+                                })
+                        );
+                    });
+
+                    self.addEventListener('activate', event => {
+                        event.waitUntil(
+                            caches.keys().then(cacheNames => {
+                                return Promise.all(
+                                    cacheNames.map(cacheName => {
+                                        if (cacheName !== CACHE_NAME) {
+                                            return caches.delete(cacheName);
+                                        }
+                                    })
+                                );
+                            })
+                        );
+                    });
+                `;
+                
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                return URL.createObjectURL(blob);
+            }
+
+            setupEventListeners() {
+                // Network status
+                window.addEventListener('online', () => {
+                    this.isOnline = true;
+                    this.updateConnectionStatus();
+                    this.syncData();
+                });
+
+                window.addEventListener('offline', () => {
+                    this.isOnline = false;
+                    this.updateConnectionStatus();
+                });
+
+                // Search functionality
+                document.getElementById('searchInput').addEventListener('input', (e) => {
+                    this.searchTerm = e.target.value.toLowerCase();
+                    this.renderDocuments();
+                });
+
+                // Category navigation
+                document.querySelectorAll('.nav-link[data-category]').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        this.currentCategory = e.target.dataset.category;
+                        this.updateActiveCategory(e.target);
+                        this.renderDocuments();
+                    });
+                });
+
+                // Modal controls
+                document.getElementById('addDocBtn').addEventListener('click', () => {
+                    document.getElementById('addDocModal').classList.add('active');
+                });
+
+                document.getElementById('closeModal').addEventListener('click', () => {
+                    document.getElementById('addDocModal').classList.remove('active');
+                });
+
+                document.getElementById('cancelAdd').addEventListener('click', () => {
+                    document.getElementById('addDocModal').classList.remove('active');
+                });
+
+                // Form submission
+                document.getElementById('addDocForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.addDocument();
+                });
+
+                // Action buttons
+                document.getElementById('syncBtn').addEventListener('click', () => {
+                    this.syncData();
+                });
+
+                document.getElementById('installBtn').addEventListener('click', () => {
+                    this.installApp();
+                });
+
+                // Quick actions
+                document.getElementById('exportDocs').addEventListener('click', () => {
+                    this.exportDocuments();
+                });
+
+                document.getElementById('clearCache').addEventListener('click', () => {
+                    this.clearCache();
+                });
+
+                document.getElementById('forceSync').addEventListener('click', () => {
+                    this.forceSync();
+                });
+
+                // Install prompt
+                window.addEventListener('beforeinstallprompt', (e) => {
+                    e.preventDefault();
+                    this.deferredPrompt = e;
+                    document.getElementById('installBtn').style.display = 'block';
+                });
+            }
+
+            checkInstallability() {
+                // Check if already installed
+                if (window.matchMedia('(display-mode: standalone)').matches) {
+                    document.getElementById('installBtn').style.display = 'none';
+                }
+            }
+
+            updateConnectionStatus() {
+                const statusElement = document.getElementById('connectionStatus');
+                const statusText = document.getElementById('statusText');
+                const offlineBanner = document.getElementById('offlineBanner');
+
+                if (this.isOnline) {
+                    statusElement.className = 'status-indicator online';
+                    statusText.textContent = 'Online';
+                    offlineBanner.classList.remove('show');
+                } else {
+                    statusElement.className = 'status-indicator offline';
+                    statusText.textContent = 'Offline';
+                    offlineBanner.classList.add('show');
+                }
+            }
+
+            loadSampleData() {
+                const sampleDocs = [
+                    {
+                        id: 1,
+                        title: 'CUDA Programming Guide',
+                        category: 'gpu',
+                        description: 'Comprehensive guide to CUDA parallel computing platform and programming model.',
+                        content: 'CUDA is a parallel computing platform and application programming interface (API) model created by NVIDIA...',
+                        lastModified: new Date().toISOString(),
+                        syncStatus: 'synced'
+                    },
+                    {
+                        id: 2,
+                        title: 'TensorRT Optimization Guide',
+                        category: 'ai',
+                        description: 'High-performance deep learning inference optimization with TensorRT.',
+                        content: 'NVIDIA TensorRT is a high-performance deep learning inference library...',
+                        lastModified: new Date().toISOString(),
+                        syncStatus: 'synced'
+                    },
+                    {
+                        id: 3,
+                        title: 'OptiX Ray Tracing Engine',
+                        category: 'graphics',
+                        description: 'Advanced ray tracing and global illumination techniques.',
+                        content: 'NVIDIA OptiX is a comprehensive ray tracing framework...',
+                        lastModified: new Date().toISOString(),
+                        syncStatus: 'synced'
+                    },
+                    {
+                        id: 4,
+                        title: 'GeForce Driver API',
+                        category: 'drivers',
+                        description: 'Latest GeForce driver features and API documentation.',
+                        content: 'The GeForce driver provides essential functionality...',
+                        lastModified: new Date().toISOString(),
+                        syncStatus: 'pending'
+                    },
+                    {
+                        id: 5,
+                        title: 'Nsight Graphics Profiler',
+                        category: 'sdk',
+                        description: 'Advanced graphics debugging and profiling tools.',
+                        content: 'Nsight Graphics is a powerful debugging and profiling tool...',
+                        lastModified: new Date().toISOString(),
+                        syncStatus: 'synced'
+                    },
+                    {
+                        id: 6,
+                        title: 'Deep Learning SDK',
+                        category: 'ai',
+                        description: 'Complete toolkit for deep learning development.',
+                        content: 'The NVIDIA Deep Learning SDK provides everything needed...',
+                        lastModified: new Date().toISOString(),
+                        syncStatus: 'offline'
+                    }
+                ];
+
+                this.documents = sampleDocs;
+                this.saveDocuments();
+            }
+
+            loadDocuments() {
+                const stored = localStorage.getItem('techDocs');
+                if (stored) {
+                    this.documents = JSON.parse(stored);
+                }
+            }
+
+            saveDocuments() {
+                localStorage.setItem('techDocs', JSON.stringify(this.documents));
+                this.updateStats();
+            }
+
+            addDocument() {
+                const form = document.getElementById('addDocForm');
+                const formData = new FormData(form);
+                
+                const newDoc = {
+                    id: Date.now(),
+                    title: document.getElementById('docTitle').value,
+                    category: document.getElementById('docCategory').value,
+                    description: document.getElementById('docDescription').value,
+                    content: document.getElementById('docContent').value,
+                    lastModified: new Date().toISOString(),
+                    syncStatus: this.isOnline ? 'pending' : 'offline'
+                };
+
+                this.documents.unshift(newDoc);
+                this.saveDocuments();
+                this.renderDocuments();
+                
+                document.getElementById('addDocModal').classList.remove('active');
+                form.reset();
+                
+                this.showToast('Document added successfully!', 'success');
+                
+                if (this.isOnline) {
+                    this.syncData();
+                }
+            }
+
+            renderDocuments() {
+                const container = document.getElementById('documentGrid');
+                const filteredDocs = this.documents.filter(doc => {
+                    const matchesCategory = this.currentCategory === 'all' || doc.category === this.currentCategory;
+                    const matchesSearch = this.searchTerm === '' || 
+                        doc.title.toLowerCase().includes(this.searchTerm) ||
+                        doc.description.toLowerCase().includes(this.searchTerm);
+                    return matchesCategory && matchesSearch;
+                });
+
+                container.innerHTML = filteredDocs.map(doc => `
+                    <div class="document-card" data-id="${doc.id}">
+                        <div class="document-header">
+                            <div>
+                                <div class="document-title">${doc.title}</div>
+                                <div class="document-category">${this.getCategoryName(doc.category)}</div>
+                            </div>
+                            <div class="sync-indicator ${doc.syncStatus}">
+                                ${this.getSyncIcon(doc.syncStatus)}
+                            </div>
+                        </div>
+                        <div class="document-description">${doc.description}</div>
+                        <div class="document-meta">
+                            <span>Modified: ${new Date(doc.lastModified).toLocaleDateString()}</span>
+                            <span>${doc.content.length} chars</span>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Add click handlers to cards
+                container.querySelectorAll('.document-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const id = parseInt(card.dataset.id);
+                        this.openDocument(id);
+                    });
+                });
+            }
+
+            getCategoryName(category) {
+                const categories = {
+                    gpu: 'GPU Computing',
+                    ai: 'AI & ML',
+                    graphics: 'Graphics',
+                    drivers: 'Drivers',
+                    sdk: 'SDK & Tools',
+                    archived: 'Archived'
+                };
+                return categories[category] || category;
+            }
+
+            getSyncIcon(status) {
+                const icons = {
+                    synced: '✓ Synced',
+                    pending: '⏳ Pending',
+                    offline: '📴 Offline'
+                };
+                return icons[status] || status;
+            }
+
+            updateActiveCategory(activeLink) {
+                document.querySelectorAll('.nav-link[data-category]').forEach(link => {
+                    link.classList.remove('active');
+                });
+                activeLink.classList.add('active');
+            }
+
+            openDocument(id) {
+                const doc = this.documents.find(d => d.id === id);
+                if (doc) {
+                    // In a real app, this would open a document viewer
+                    this.showToast(`Opening: ${doc.title}`, 'info');
+                }
+            }
+
+            async syncData() {
+                if (!this.isOnline) {
+                    this.showToast('Cannot sync while offline', 'error');
+                    return;
+                }
+
+                const syncBtn = document.getElementById('syncBtn');
+                syncBtn.innerHTML = '<div class="loading-spinner"></div> Syncing...';
+                syncBtn.disabled = true;
+
+                try {
+                    // Simulate sync operation
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    
+                    // Update sync status for pending documents
+                    this.documents.forEach(doc => {
+                        if (doc.syncStatus === 'pending') {
+                            doc.syncStatus = 'synced';
+                        }
+                    });
+                    
+                    this.lastSync = new Date().toLocaleString();
+                    localStorage.setItem('lastSync', this.lastSync);
+                    
+                    this.saveDocuments();
+                    this.renderDocuments();
+                    this.updateStats();
+                    
+                    document.getElementById('syncStatus').textContent = 'Synced';
+                    this.showToast('Sync completed successfully!', 'success');
+                    
+                } catch (error) {
+                    console.error('Sync failed:', error);
+                    this.showToast('Sync failed. Please try again.', 'error');
+                } finally {
+                    syncBtn.innerHTML = '🔄 Sync Now';
+                    syncBtn.disabled = false;
+                }
+            }
+
+            forceSync() {
+                this.showToast('Force sync initiated...', 'info');
+                this.syncData();
+            }
+
+            async installApp() {
+                if (this.deferredPrompt) {
+                    this.deferredPrompt.prompt();
+                    const { outcome } = await this.deferredPrompt.userChoice;
+                    
+                    if (outcome === 'accepted') {
+                        this.showToast('App installed successfully!', 'success');
+                    }
+                    
+                    this.deferredPrompt = null;
+                    document.getElementById('installBtn').style.display = 'none';
+                }
+            }
+
+            exportDocuments() {
+                const dataStr = JSON.stringify(this.documents, null, 2);
+                const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                const url = URL.createObjectURL(dataBlob);
+                
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'nvidia-techdocs-export.json';
+                link.click();
+                
+                URL.revokeObjectURL(url);
+                this.showToast('Documents exported successfully!', 'success');
+            }
+
+            async clearCache() {
+                if ('caches' in window) {
+                    const cacheNames = await caches.keys();
+                    await Promise.all(cacheNames.map(name => caches.delete(name)));
+                }
+                
+                this.showToast('Cache cleared successfully!', 'success');
+                this.updateStats();
+            }
+
+            updateStats() {
+                document.getElementById('totalDocs').textContent = this.documents.length;
+                document.getElementById('offlineDocs').textContent = this.documents.filter(doc => doc.syncStatus === 'synced').length;
+                document.getElementById('lastSync').textContent = this.lastSync;
+                
+                // Calculate cache size (approximation)
+                const dataSize = JSON.stringify(this.documents).length;
+                const sizeInMB = (dataSize / (1024 * 1024)).toFixed(2);
+                document.getElementById('cacheSize').textContent = `${sizeInMB} MB`;
+            }
+
+            startPerformanceMonitoring() {
+                const updatePerformance = () => {
+                    // Service Worker status
+                    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+                        this.updateSwStatus('Active');
+                    }
+                    
+                    // Cache status
+                    document.getElementById('cacheStatus').textContent = `${this.documents.length} entries`;
+                    
+                    // Memory usage (approximation)
+                    if (performance.memory) {
+                        const usedMB = (performance.memory.usedJSHeapSize / (1024 * 1024)).toFixed(1);
+                        document.getElementById('memoryUsage').textContent = `${usedMB} MB`;
+                    }
+                };
+                
+                updatePerformance();
+                setInterval(updatePerformance, 5000);
+            }
+
+            updateSwStatus(status) {
+                document.getElementById('swStatus').textContent = status;
+            }
+
+            updateUI() {
+                this.updateConnectionStatus();
+                this.renderDocuments();
+                this.updateStats();
+            }
+
+            showToast(message, type = 'info') {
+                // Remove existing toast
+                const existingToast = document.querySelector('.toast');
+                if (existingToast) {
+                    existingToast.remove();
+                }
+
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.textContent = message;
+                document.body.appendChild(toast);
+
+                setTimeout(() => toast.classList.add('show'), 100);
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            }
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', () => {
+            new NVIDIATechDocs();
+        });
+    </script>
+</body>
+</html>
