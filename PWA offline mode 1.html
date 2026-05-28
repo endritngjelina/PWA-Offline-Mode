@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow Pro - Professional Task Manager</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Professional task management with offline capabilities">
+    <meta name="theme-color" content="#007AFF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="TaskFlow Pro">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23007AFF'/><text y='70' font-size='60' text-anchor='middle' x='50' fill='white'>✓</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23007AFF'/><text y='70' font-size='60' text-anchor='middle' x='50' fill='white'>✓</text></svg>">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="data:application/json,{
+        'name': 'TaskFlow Pro',
+        'short_name': 'TaskFlow',
+        'description': 'Professional task management with offline capabilities',
+        'start_url': '/',
+        'display': 'standalone',
+        'background_color': '#ffffff',
+        'theme_color': '#007AFF',
+        'icons': [
+            {
+                'src': 'data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23007AFF\'/><text y=\'70\' font-size=\'60\' text-anchor=\'middle\' x=\'50\' fill=\'white\'>✓</text></svg>',
+                'sizes': '192x192',
+                'type': 'image/svg+xml'
+            }
+        ]
+    }">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #007AFF, #5856D6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .status-bar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .status-online {
+            background: rgba(52, 199, 89, 0.1);
+            color: #34C759;
+            border: 1px solid rgba(52, 199, 89, 0.3);
+        }
+        
+        .status-offline {
+            background: rgba(255, 149, 0, 0.1);
+            color: #FF9500;
+            border: 1px solid rgba(255, 149, 0, 0.3);
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card h2 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #1D1D1F;
+            font-weight: 600;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .input-field {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid rgba(0, 122, 255, 0.1);
+            border-radius: 12px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #007AFF;
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+        }
+        
+        .btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #007AFF, #5856D6);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 122, 255, 0.3);
+        }
+        
+        .btn-secondary {
+            background: rgba(142, 142, 147, 0.1);
+            color: #8E8E93;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(142, 142, 147, 0.2);
+        }
+        
+        .task-list {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        
+        .task-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: rgba(248, 248, 248, 0.8);
+            border-radius: 12px;
+            border-left: 4px solid #007AFF;
+            transition: all 0.3s ease;
+        }
+        
+        .task-item:hover {
+            background: rgba(248, 248, 248, 1);
+            transform: translateX(5px);
+        }
+        
+        .task-item.completed {
+            opacity: 0.6;
+            border-left-color: #34C759;
+        }
+        
+        .task-item.completed .task-text {
+            text-decoration: line-through;
+        }
+        
+        .task-content {
+            flex: 1;
+        }
+        
+        .task-text {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .task-meta {
+            font-size: 0.85em;
+            color: #8E8E93;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .task-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-small {
+            padding: 8px 12px;
+            font-size: 0.85em;
+            border-radius: 8px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: rgba(248, 248, 248, 0.8);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: 700;
+            color: #007AFF;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            color: #8E8E93;
+            margin-top: 5px;
+        }
+        
+        .sync-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+        }
+        
+        .sync-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .priority-high { border-left-color: #FF3B30; }
+        .priority-medium { border-left-color: #FF9500; }
+        .priority-low { border-left-color: #34C759; }
+        
+        .search-bar {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(0, 122, 255, 0.1);
+            border-radius: 12px;
+            font-size: 1em;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid rgba(0, 122, 255, 0.3);
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active {
+            background: #007AFF;
+            color: white;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-weight: 500;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.success {
+            background: #34C759;
+            color: white;
+        }
+        
+        .notification.error {
+            background: #FF3B30;
+            color: white;
+        }
+        
+        .notification.info {
+            background: #007AFF;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .sync-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+        
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <h1>TaskFlow Pro</h1>
+            <p>Professional task management with advanced offline capabilities</p>
+            <div class="status-bar">
+                <div class="status-indicator" id="connectionStatus">
+                    <span>🔄</span>
+                    <span id="statusText">Initializing...</span>
+                </div>
+                <div class="status-indicator">
+                    <span>💾</span>
+                    <span id="storageInfo">Loading storage info...</span>
+                </div>
+                <div class="status-indicator">
+                    <span>🔄</span>
+                    <span id="lastSync">Never synced</span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="card">
+                <h2>📝 Add New Task</h2>
+                <div class="input-group">
+                    <input type="text" class="input-field" id="taskInput" placeholder="Enter task description...">
+                    <select class="input-field" id="prioritySelect">
+                        <option value="low">Low Priority</option>
+                        <option value="medium" selected>Medium Priority</option>
+                        <option value="high">High Priority</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <input type="date" class="input-field" id="dueDateInput">
+                    <input type="text" class="input-field" id="categoryInput" placeholder="Category (optional)">
+                </div>
+                <button class="btn btn-primary" id="addTaskBtn">
+                    <span>➕</span>
+                    Add Task
+                </button>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalTasks">0</div>
+                        <div class="stat-label">Total Tasks</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="completedTasks">0</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="pendingTasks">0</div>
+                        <div class="stat-label">Pending</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>📋 Task Management</h2>
+                <input type="text" class="search-bar" id="searchInput" placeholder="Search tasks...">
+                
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="pending">Pending</button>
+                    <button class="filter-btn" data-filter="completed">Completed</button>
+                    <button class="filter-btn" data-filter="high">High Priority</button>
+                    <button class="filter-btn" data-filter="overdue">Overdue</button>
+                </div>
+                
+                <div class="task-list" id="taskList">
+                    <!-- Tasks will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>⚙️ Data Management & Sync</h2>
+            <div class="sync-section">
+                <div class="sync-controls">
+                    <button class="btn btn-primary" id="syncBtn">
+                        <span>🔄</span>
+                        Force Sync
+                    </button>
+                    <button class="btn btn-secondary" id="exportBtn">
+                        <span>📤</span>
+                        Export Data
+                    </button>
+                    <button class="btn btn-secondary" id="importBtn">
+                        <span>📥</span>
+                        Import Data
+                    </button>
+                    <button class="btn btn-secondary" id="clearBtn">
+                        <span>🗑️</span>
+                        Clear All Data
+                    </button>
+                </div>
+                <input type="file" id="importFile" accept=".json" style="display: none;">
+            </div>
+        </div>
+    </div>
+    
+    <div class="notification" id="notification"></div>
+    
+    <script>
+        class TaskManagerPWA {
+            constructor() {
+                this.tasks = [];
+                this.isOnline = navigator.onLine;
+                this.currentFilter = 'all';
+                this.searchTerm = '';
+                this.syncQueue = [];
+                this.lastSyncTime = null;
+                
+                this.initializeApp();
+                this.setupEventListeners();
+                this.setupServiceWorker();
+                this.loadTasks();
+                this.updateUI();
+            }
+            
+            initializeApp() {
+                this.updateConnectionStatus();
+                this.updateStorageInfo();
+                this.checkForUpdates();
+            }
+            
+            setupEventListeners() {
+                // Network status
+                window.addEventListener('online', () => {
+                    this.isOnline = true;
+                    this.updateConnectionStatus();
+                    this.processSyncQueue();
+                    this.showNotification('Back online! Syncing data...', 'success');
+                });
+                
+                window.addEventListener('offline', () => {
+                    this.isOnline = false;
+                    this.updateConnectionStatus();
+                    this.showNotification('Working offline. Changes will sync when online.', 'info');
+                });
+                
+                // Task management
+                document.getElementById('addTaskBtn').addEventListener('click', () => this.addTask());
+                document.getElementById('taskInput').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.addTask();
+                });
+                
+                // Search and filter
+                document.getElementById('searchInput').addEventListener('input', (e) => {
+                    this.searchTerm = e.target.value.toLowerCase();
+                    this.renderTasks();
+                });
+                
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        this.currentFilter = e.target.dataset.filter;
+                        this.renderTasks();
+                    });
+                });
+                
+                // Data management
+                document.getElementById('syncBtn').addEventListener('click', () => this.forceSync());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportData());
+                document.getElementById('importBtn').addEventListener('click', () => {
+                    document.getElementById('importFile').click();
+                });
+                document.getElementById('clearBtn').addEventListener('click', () => this.clearAllData());
+                
+                document.getElementById('importFile').addEventListener('change', (e) => {
+                    this.importData(e.target.files[0]);
+                });
+            }
+            
+            async setupServiceWorker() {
+                if ('serviceWorker' in navigator) {
+                    try {
+                        const swCode = `
+                            const CACHE_NAME = 'taskflow-v1';
+                            const urlsToCache = [
+                                '/',
+                                '/index.html'
+                            ];
+                            
+                            self.addEventListener('install', event => {
+                                event.waitUntil(
+                                    caches.open(CACHE_NAME)
+                                        .then(cache => cache.addAll(urlsToCache))
+                                );
+                            });
+                            
+                            self.addEventListener('fetch', event => {
+                                event.respondWith(
+                                    caches.match(event.request)
+                                        .then(response => {
+                                            if (response) {
+                                                return response;
+                                            }
+                                            return fetch(event.request);
+                                        })
+                                );
+                            });
+                            
+                            self.addEventListener('sync', event => {
+                                if (event.tag === 'background-sync') {
+                                    event.waitUntil(self.clients.matchAll().then(clients => {
+                                        clients.forEach(client => {
+                                            client.postMessage({type: 'BACKGROUND_SYNC'});
+                                        });
+                                    }));
+                                }
+                            });
+                        `;
+                        
+                        const blob = new Blob([swCode], { type: 'application/javascript' });
+                        const swUrl = URL.createObjectURL(blob);
+                        
+                        const registration = await navigator.serviceWorker.register(swUrl);
+                        
+                        if (registration.installing) {
+                            console.log('Service Worker installing');
+                        } else if (registration.waiting) {
+                            console.log('Service Worker installed');
+                        } else if (registration.active) {
+                            console.log('Service Worker active');
+                        }
+                        
+                        // Listen for messages from service worker
+                        navigator.serviceWorker.addEventListener('message', event => {
+                            if (event.data.type === 'BACKGROUND_SYNC') {
+                                this.processSyncQueue();
+                            }
+                        });
+                        
+                    } catch (error) {
+                        console.log('Service Worker registration failed:', error);
+                    }
+                }
+            }
+            
+            generateId() {
+                return Date.now().toString(36) + Math.random().toString(36).substr(2);
+            }
+            
+            addTask() {
+                const taskInput = document.getElementById('taskInput');
+                const prioritySelect = document.getElementById('prioritySelect');
+                const dueDateInput = document.getElementById('dueDateInput');
+                const categoryInput = document.getElementById('categoryInput');
+                
+                const text = taskInput.value.trim();
+                if (!text) return;
+                
+                const task = {
+                    id: this.generateId(),
+                    text,
+                    priority: prioritySelect.value,
+                    dueDate: dueDateInput.value,
+                    category: categoryInput.value.trim() || 'General',
+                    completed: false,
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString()
+                };
+                
+                this.tasks.unshift(task);
+                this.saveTasks();
+                this.updateUI();
+                
+                // Clear form
+                taskInput.value = '';
+                dueDateInput.value = '';
+                categoryInput.value = '';
+                
+                this.showNotification('Task added successfully!', 'success');
+                this.queueForSync(task, 'CREATE');
+            }
+            
+            toggleTask(id) {
+                const task = this.tasks.find(t => t.id === id);
+                if (task) {
+                    task.completed = !task.completed;
+                    task.updatedAt = new Date().toISOString();
+                    this.saveTasks();
+                    this.updateUI();
+                    this.queueForSync(task, 'UPDATE');
+                    
+                    const status = task.completed ? 'completed' : 'reopened';
+                    this.showNotification(`Task ${status}!`, 'success');
+                }
+            }
+            
+            deleteTask(id) {
+                const taskIndex = this.tasks.findIndex(t => t.id === id);
+                if (taskIndex !== -1) {
+                    const task = this.tasks[taskIndex];
+                    this.tasks.splice(taskIndex, 1);
+                    this.saveTasks();
+                    this.updateUI();
+                    this.queueForSync(task, 'DELETE');
+                    this.showNotification('Task deleted!', 'success');
+                }
+            }
+            
+            editTask(id) {
+                const task = this.tasks.find(t => t.id === id);
+                if (task) {
+                    const newText = prompt('Edit task:', task.text);
+                    if (newText && newText.trim()) {
+                        task.text = newText.trim();
+                        task.updatedAt = new Date().toISOString();
+                        this.saveTasks();
+                        this.updateUI();
+                        this.queueForSync(task, 'UPDATE');
+                        this.showNotification('Task updated!', 'success');
+                    }
+                }
+            }
+            
+            filterTasks() {
+                let filtered = this.tasks;
+                
+                // Apply search filter
+                if (this.searchTerm) {
+                    filtered = filtered.filter(task => 
+                        task.text.toLowerCase().includes(this.searchTerm) ||
+                        task.category.toLowerCase().includes(this.searchTerm)
+                    );
+                }
+                
+                // Apply status filter
+                switch (this.currentFilter) {
+                    case 'pending':
+                        filtered = filtered.filter(task => !task.completed);
+                        break;
+                    case 'completed':
+                        filtered = filtered.filter(task => task.completed);
+                        break;
+                    case 'high':
+                        filtered = filtered.filter(task => task.priority === 'high');
+                        break;
+                    case 'overdue':
+                        const today = new Date().toISOString().split('T')[0];
+                        filtered = filtered.filter(task => 
+                            task.dueDate && task.dueDate < today && !task.completed
+                        );
+                        break;
+                }
+                
+                return filtered;
+            }
+            
+            renderTasks() {
+                const taskList = document.getElementById('taskList');
+                const filteredTasks = this.filterTasks();
+                
+                if (filteredTasks.length === 0) {
+                    taskList.innerHTML = '<p style="text-align: center; color: #8E8E93; padding: 40px;">No tasks found</p>';
+                    return;
+                }
+                
+                taskList.innerHTML = filteredTasks.map(task => {
+                    const isOverdue = task.dueDate && task.dueDate < new Date().toISOString().split('T')[0] && !task.completed;
+                    const dueDate = task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'No due date';
+                    
+                    return `
+                        <div class="task-item ${task.completed ? 'completed' : ''} priority-${task.priority} fade-in">
+                            <div class="task-content">
+                                <div class="task-text">${task.text}</div>
+                                <div class="task-meta">
+                                    <span>📂 ${task.category}</span>
+                                    <span>📅 ${dueDate}</span>
+                                    <span>⚡ ${task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}</span>
+                                    ${isOverdue ? '<span style="color: #FF3B30;">⚠️ Overdue</span>' : ''}
+                                </div>
+                            </div>
+                            <div class="task-actions">
+                                <button class="btn btn-secondary btn-small" onclick="app.toggleTask('${task.id}')">
+                                    ${task.completed ? '↩️' : '✅'}
+                                </button>
+                                <button class="btn btn-secondary btn-small" onclick="app.editTask('${task.id}')">
+                                    ✏️
+                                </button>
+                                <button class="btn btn-secondary btn-small" onclick="app.deleteTask('${task.id}')">
+                                    🗑️
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            updateStats() {
+                const total = this.tasks.length;
+                const completed = this.tasks.filter(t => t.completed).length;
+                const pending = total - completed;
+                
+                document.getElementById('totalTasks').textContent = total;
+                document.getElementById('completedTasks').textContent = completed;
+                document.getElementById('pendingTasks').textContent = pending;
+            }
+            
+            updateConnectionStatus() {
+                const statusIndicator = document.getElementById('connectionStatus');
+                const statusText = document.getElementById('statusText');
+                
+                if (this.isOnline) {
+                    statusIndicator.className = 'status-indicator status-online';
+                    statusText.textContent = 'Online';
+                } else {
+                    statusIndicator.className = 'status-indicator status-offline';
+                    statusText.textContent = 'Offline';
+                }
+            }
+            
+            updateStorageInfo() {
+                const storageInfo = document.getElementById('storageInfo');
+                try {
+                    const data = JSON.stringify(this.tasks);
+                    const size = new Blob([data]).size;
+                    const sizeKB = (size / 1024).toFixed(2);
+                    storageInfo.textContent = `${sizeKB} KB stored`;
+                } catch (error) {
+                    storageInfo.textContent = 'Storage info unavailable';
+                }
+            }
+            
+            updateUI() {
+                this.renderTasks();
+                this.updateStats();
+                this.updateStorageInfo();
+                this.updateLastSyncTime();
+            }
+            
+            updateLastSyncTime() {
+                const lastSyncElement = document.getElementById('lastSync');
+                if (this.lastSyncTime) {
+                    const timeDiff = Date.now() - this.lastSyncTime;
+                    const minutes = Math.floor(timeDiff / 60000);
+                    const hours = Math.floor(minutes / 60);
+                    const days = Math.floor(hours / 24);
+                    
+                    let timeText;
+                    if (days > 0) {
+                        timeText = `${days} day${days > 1 ? 's' : ''} ago`;
+                    } else if (hours > 0) {
+                        timeText = `${hours} hour${hours > 1 ? 's' : ''} ago`;
+                    } else if (minutes > 0) {
+                        timeText = `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+                    } else {
+                        timeText = 'Just now';
+                    }
+                    
+                    lastSyncElement.textContent = `Last sync: ${timeText}`;
+                } else {
+                    lastSyncElement.textContent = 'Never synced';
+                }
+            }
+            
+            saveTasks() {
+                try {
+                    const data = {
+                        tasks: this.tasks,
+                        lastModified: new Date().toISOString(),
+                        version: '1.0'
+                    };
+                    const dataString = JSON.stringify(data);
+                    
+                    // Use multiple storage methods for redundancy
+                    if (typeof(Storage) !== 'undefined') {
+                        // Simulate localStorage behavior with in-memory storage
+                        this.memoryStorage = this.memoryStorage || {};
+                        this.memoryStorage['taskflow-data'] = dataString;
+                        
+                        // Also try IndexedDB for larger storage
+                        this.saveToIndexedDB(data);
+                    }
+                    
+                    this.updateStorageInfo();
+                } catch (error) {
+                    console.error('Error saving tasks:', error);
+                    this.showNotification('Error saving data', 'error');
+                }
+            }
+            
+            loadTasks() {
+                try {
+                    this.memoryStorage = this.memoryStorage || {};
+                    const storedData = this.memoryStorage['taskflow-data'];
+                    
+                    if (storedData) {
+                        const data = JSON.parse(storedData);
+                        this.tasks = data.tasks || [];
+                    } else {
+                        // Load sample data for demonstration
+                        this.tasks = [
+                            {
+                                id: 'sample-1',
+                                text: 'Review PWA implementation',
+                                priority: 'high',
+                                dueDate: new Date().toISOString().split('T')[0],
+                                category: 'Development',
+                                completed: false,
+                                createdAt: new Date().toISOString(),
+                                updatedAt: new Date().toISOString()
+                            },
+                            {
+                                id: 'sample-2',
+                                text: 'Optimize offline functionality',
+                                priority: 'medium',
+                                dueDate: '',
+                                category: 'Performance',
+                                completed: false,
+                                createdAt: new Date().toISOString(),
+                                updatedAt: new Date().toISOString()
+                            },
+                            {
+                                id: 'sample-3',
+                                text: 'Design user interface',
+                                priority: 'low',
+                                dueDate: '',
+                                category: 'Design',
+                                completed: true,
+                                createdAt: new Date().toISOString(),
+                                updatedAt: new Date().toISOString()
+                            }
+                        ];
+                        this.saveTasks();
+                    }
+                    
+                    // Also try to load from IndexedDB
+                    this.loadFromIndexedDB();
+                    
+                } catch (error) {
+                    console.error('Error loading tasks:', error);
+                    this.tasks = [];
+                }
+            }
+            
+            async saveToIndexedDB(data) {
+                try {
+                    const request = indexedDB.open('TaskFlowDB', 1);
+                    
+                    request.onupgradeneeded = (e) => {
+                        const db = e.target.result;
+                        if (!db.objectStoreNames.contains('tasks')) {
+                            db.createObjectStore('tasks', { keyPath: 'id' });
+                        }
+                        if (!db.objectStoreNames.contains('metadata')) {
+                            db.createObjectStore('metadata', { keyPath: 'key' });
+                        }
+                    };
+                    
+                    request.onsuccess = (e) => {
+                        const db = e.target.result;
+                        const transaction = db.transaction(['tasks', 'metadata'], 'readwrite');
+                        
+                        // Clear existing tasks
+                        const taskStore = transaction.objectStore('tasks');
+                        taskStore.clear();
+                        
+                        // Add all tasks
+                        data.tasks.forEach(task => taskStore.add(task));
+                        
+                        // Update metadata
+                        const metadataStore = transaction.objectStore('metadata');
+                        metadataStore.put({
+                            key: 'lastModified',
+                            value: data.lastModified
+                        });
+                        
+                        transaction.oncomplete = () => {
+                            console.log('Data saved to IndexedDB');
+                        };
+                    };
+                } catch (error) {
+                    console.error('IndexedDB save error:', error);
+                }
+            }
+            
+            async loadFromIndexedDB() {
+                try {
+                    const request = indexedDB.open('TaskFlowDB', 1);
+                    
+                    request.onsuccess = (e) => {
+                        const db = e.target.result;
+                        const transaction = db.transaction(['tasks'], 'readonly');
+                        const store = transaction.objectStore('tasks');
+                        const getAllRequest = store.getAll();
+                        
+                        getAllRequest.onsuccess = () => {
+                            const indexedDBTasks = getAllRequest.result;
+                            if (indexedDBTasks.length > 0) {
+                                // Merge with existing tasks (IndexedDB might have newer data)
+                                const mergedTasks = [...this.tasks];
+                                indexedDBTasks.forEach(dbTask => {
+                                    const existingIndex = mergedTasks.findIndex(t => t.id === dbTask.id);
+                                    if (existingIndex !== -1) {
+                                        // Update if IndexedDB version is newer
+                                        if (new Date(dbTask.updatedAt) > new Date(mergedTasks[existingIndex].updatedAt)) {
+                                            mergedTasks[existingIndex] = dbTask;
+                                        }
+                                    } else {
+                                        mergedTasks.push(dbTask);
+                                    }
+                                });
+                                this.tasks = mergedTasks;
+                                this.updateUI();
+                            }
+                        };
+                    };
+                } catch (error) {
+                    console.error('IndexedDB load error:', error);
+                }
+            }
+            
+            queueForSync(task, operation) {
+                if (!this.isOnline) {
+                    this.syncQueue.push({
+                        task,
+                        operation,
+                        timestamp: Date.now()
+                    });
+                    this.showNotification('Queued for sync when online', 'info');
+                }
+            }
+            
+            async processSyncQueue() {
+                if (!this.isOnline || this.syncQueue.length === 0) return;
+                
+                const btn = document.getElementById('syncBtn');
+                btn.classList.add('loading');
+                btn.innerHTML = '<span class="spinner"></span> Syncing...';
+                
+                try {
+                    // Simulate API sync
+                    await this.simulateSync();
+                    
+                    this.syncQueue = [];
+                    this.lastSyncTime = Date.now();
+                    this.showNotification('Sync completed successfully!', 'success');
+                    
+                } catch (error) {
+                    console.error('Sync failed:', error);
+                    this.showNotification('Sync failed, will retry later', 'error');
+                } finally {
+                    btn.classList.remove('loading');
+                    btn.innerHTML = '<span>🔄</span> Force Sync';
+                    this.updateUI();
+                }
+            }
+            
+            async simulateSync() {
+                // Simulate network delay
+                await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
+                
+                // Simulate occasional failures
+                if (Math.random() < 0.1) {
+                    throw new Error('Network error');
+                }
+                
+                return { success: true, synced: this.syncQueue.length };
+            }
+            
+            async forceSync() {
+                if (!this.isOnline) {
+                    this.showNotification('Cannot sync while offline', 'error');
+                    return;
+                }
+                
+                // Add all tasks to sync queue for force sync
+                this.syncQueue = this.tasks.map(task => ({
+                    task,
+                    operation: 'UPDATE',
+                    timestamp: Date.now()
+                }));
+                
+                await this.processSyncQueue();
+            }
+            
+            exportData() {
+                try {
+                    const data = {
+                        tasks: this.tasks,
+                        exportDate: new Date().toISOString(),
+                        version: '1.0'
+                    };
+                    
+                    const dataStr = JSON.stringify(data, null, 2);
+                    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                    
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(dataBlob);
+                    link.download = `taskflow-backup-${new Date().toISOString().split('T')[0]}.json`;
+                    link.click();
+                    
+                    this.showNotification('Data exported successfully!', 'success');
+                } catch (error) {
+                    console.error('Export error:', error);
+                    this.showNotification('Export failed', 'error');
+                }
+            }
+            
+            async importData(file) {
+                if (!file) return;
+                
+                try {
+                    const text = await file.text();
+                    const data = JSON.parse(text);
+                    
+                    if (data.tasks && Array.isArray(data.tasks)) {
+                        const importedCount = data.tasks.length;
+                        
+                        // Merge imported tasks with existing ones
+                        const mergedTasks = [...this.tasks];
+                        data.tasks.forEach(importedTask => {
+                            const existingIndex = mergedTasks.findIndex(t => t.id === importedTask.id);
+                            if (existingIndex !== -1) {
+                                // Update existing task
+                                mergedTasks[existingIndex] = importedTask;
+                            } else {
+                                // Add new task
+                                mergedTasks.push(importedTask);
+                            }
+                        });
+                        
+                        this.tasks = mergedTasks;
+                        this.saveTasks();
+                        this.updateUI();
+                        
+                        this.showNotification(`Imported ${importedCount} tasks successfully!`, 'success');
+                    } else {
+                        throw new Error('Invalid file format');
+                    }
+                } catch (error) {
+                    console.error('Import error:', error);
+                    this.showNotification('Import failed: Invalid file format', 'error');
+                }
+            }
+            
+            clearAllData() {
+                if (confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
+                    this.tasks = [];
+                    this.syncQueue = [];
+                    this.lastSyncTime = null;
+                    
+                    // Clear memory storage
+                    this.memoryStorage = {};
+                    
+                    // Clear IndexedDB
+                    const request = indexedDB.deleteDatabase('TaskFlowDB');
+                    request.onsuccess = () => {
+                        console.log('IndexedDB cleared');
+                    };
+                    
+                    this.updateUI();
+                    this.showNotification('All data cleared', 'info');
+                }
+            }
+            
+            showNotification(message, type = 'info') {
+                const notification = document.getElementById('notification');
+                notification.textContent = message;
+                notification.className = `notification ${type}`;
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+            
+            checkForUpdates() {
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.ready.then(registration => {
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    this.showNotification('New version available! Refresh to update.', 'info');
+                                }
+                            });
+                        });
+                    });
+                }
+            }
+        }
+        
+        // Initialize the app
+        let app;
+        window.addEventListener('DOMContentLoaded', () => {
+            app = new TaskManagerPWA();
+            
+            // Update last sync time every minute
+            setInterval(() => {
+                app.updateLastSyncTime();
+            }, 60000);
+            
+            // Auto-sync every 5 minutes if online
+            setInterval(() => {
+                if (app.isOnline && app.syncQueue.length > 0) {
+                    app.processSyncQueue();
+                }
+            }, 300000);
+        });
+        
+        // Handle beforeinstallprompt event
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            deferredPrompt = e;
+            // Show custom install button if desired
+            console.log('PWA install prompt available');
+        });
+        
+        // Handle app installation
+        window.addEventListener('appinstalled', (evt) => {
+            console.log('PWA was installed');
+            app.showNotification('App installed successfully!', 'success');
+        });
+        
+        // Handle visibility change for background sync
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden && app.isOnline) {
+                app.processSyncQueue();
+            }
+        });
+    </script>
+</body>
+</html>
